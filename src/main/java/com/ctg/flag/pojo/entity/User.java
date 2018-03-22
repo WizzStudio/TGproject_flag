@@ -11,6 +11,8 @@ public class User {
 
     private String openid;
 
+    private Integer state;
+
     private Integer did;
 
     public Integer getId() {
