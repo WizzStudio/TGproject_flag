@@ -1,7 +1,9 @@
 package com.ctg.flag.pojo.entity;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
+@Entity
 public class PlaceOrder {
     private Integer id;
 

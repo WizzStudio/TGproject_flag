@@ -1,5 +1,11 @@
 package com.ctg.flag.pojo.entity;
 
+import javax.persistence.Entity;
+
+/**
+ * 管理员领域对象
+ */
+@Entity
 public class Admin {
     private Integer id;
 

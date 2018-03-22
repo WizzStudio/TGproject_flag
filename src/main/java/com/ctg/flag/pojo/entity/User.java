@@ -1,5 +1,8 @@
 package com.ctg.flag.pojo.entity;
 
+import javax.persistence.Entity;
+
+@Entity
 public class User {
     private Integer id;
 
