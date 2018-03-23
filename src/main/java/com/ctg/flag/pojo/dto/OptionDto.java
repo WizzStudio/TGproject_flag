@@ -4,6 +4,14 @@ public class OptionDto <A, B> {
     private A optKey;
     private B optVal;
 
+    public OptionDto() {
+    }
+
+    public OptionDto(A key, B val) {
+        this.optKey = key;
+        this.optVal = val;
+    }
+
     public void setOptKey(A optKey) {
         this.optKey = optKey;
     }

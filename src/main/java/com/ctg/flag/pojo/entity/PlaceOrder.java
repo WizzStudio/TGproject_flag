@@ -1,10 +1,16 @@
 package com.ctg.flag.pojo.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
+@Table(name = "place_order", schema = "flag")
 public class PlaceOrder {
+    @Id
+    @GeneratedValue
     private Integer id;
 
     private Integer state;

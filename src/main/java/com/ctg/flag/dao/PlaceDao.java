@@ -2,18 +2,15 @@ package com.ctg.flag.dao;
 
 import com.ctg.flag.pojo.entity.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface PlaceDao extends JpaRepository<Place, Integer> {
 
+<<<<<<< HEAD
     Place getPlaceByid(Integer id);
+=======
+    Place findById(int id);
+>>>>>>> 5b5b3b4e4372d9e47484f01f8a7bf67a87f10db8
 
-    @Transactional
-    @Modifying
-    @Query(value = "update place a set a.description = ?1 where a.id = ?2",nativeQuery = true)
-    int updateDescriptionById(String description,Integer id);
 }

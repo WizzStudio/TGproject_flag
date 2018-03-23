@@ -1,5 +1,6 @@
 package com.ctg.flag.web.controller;
 
+import com.ctg.flag.enums.UserInfoStateEnum;
 import com.ctg.flag.pojo.dto.ResponseDto;
 import com.ctg.flag.pojo.entity.User;
 import com.ctg.flag.service.UserService;
@@ -22,28 +23,46 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * 用户微信认证登录
+     * @param code 前端给的code
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseDto login(@RequestParam(name = "code", defaultValue = "") String code,
                              HttpSession session) throws Exception{
         String openid = WechatUtil.getOpenId(code);
+        if (openid == null) {
+            return ResponseDto.failed("log in failed, code is wrong");
+        }
 
         User user = userService.login(openid);
         session.setAttribute("user", user);
 
-        if (user.getState)
-
-        return ResponseDto.succeed("log in successfully");
+        if (user.getState().equals(UserInfoStateEnum.INCOMPLETED.getValue())) {
+            return ResponseDto.failed("not complete user info.");
+        } else {
+            return ResponseDto.succeed("log in successfully.");
+        }
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    /**
+     * 完善个人信息，或者修改个人信息
+     * @param user 表单自动生成的user
+     */
     public ResponseDto updateUserInfo(User user, HttpSession session) {
         User sUser = (User) session.getAttribute("user");
+
         if (sUser == null) {
             return ResponseDto.failed("not log in");
         }
 
         user.setId(sUser.getId());
+        user.setOpenid(sUser.getOpenid());
+        user.setState(UserInfoStateEnum.COMPLETED.getValue());
         userService.update(user);
+
+        // 更新session中的user
+        session.setAttribute("user", user);
 
         return ResponseDto.succeed();
     }

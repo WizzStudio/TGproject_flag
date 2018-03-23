@@ -1,22 +1,35 @@
 package com.ctg.flag.pojo.entity;
 
-import javax.persistence.Entity;
+import com.ctg.flag.enums.UserInfoStateEnum;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "user", schema = "flag")
 public class User {
+    @Id
+    @GeneratedValue
     private Integer id;
 
-    private String studentid;
+    private String studentid = "000000000000";
 
-    private String position;
+    private String position = "default";
 
-    private String name;
+    private String name = "default";
 
     private String openid;
 
-    private Integer state;
+    private Integer state = UserInfoStateEnum.INCOMPLETED.getValue();
 
-    private Integer did;
+    private Integer did = -1;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public Integer getId() {
         return id;

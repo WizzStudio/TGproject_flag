@@ -1,9 +1,15 @@
 package com.ctg.flag.pojo.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "department", schema = "flag")
 public class Department {
+    @Id
+    @GeneratedValue
     private Integer id; //部门id
 
     private String name;  //部门名称
