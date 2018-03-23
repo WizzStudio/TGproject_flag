@@ -16,6 +16,8 @@ public class PlaceOrder {
 
     private Date endTime;
 
+    private String feedback;
+
     private String admin;
 
     private String phone;
@@ -23,6 +25,14 @@ public class PlaceOrder {
     private Integer uid;
 
     private Integer pid;
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
 
     private Date createTime = new Date();
 
@@ -36,22 +46,12 @@ public class PlaceOrder {
         this.updateTime = updateTime;
     }
 
-    private Integer deleted;
-
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Integer getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
     }
 
     public Integer getId() {

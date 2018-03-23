@@ -36,7 +36,7 @@ public class UserController {
         }
 
         User user = userService.login(openid);
-        session.setAttribute("user", user.getId());
+        session.setAttribute("userId", user.getId());
 
         if (user.getState().equals(UserInfoStateEnum.INCOMPLETED.getValue())) {
             return ResponseDto.failed("not complete user info.");
@@ -51,7 +51,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseDto updateUserInfo(User user, HttpSession session) {
-        User sUser = (User) session.getAttribute("user");
+        User sUser = (User) session.getAttribute("userId");
 
         if (sUser == null) {
             return ResponseDto.failed("not log in");

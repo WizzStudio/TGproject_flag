@@ -26,5 +26,5 @@ public interface DepartmentDao extends JpaRepository<Department,Integer> {
      * 查询所属机构列表
      * @return
      */
-    List<Department> findAllByAuthcode();
+    List<Department> findAllByKind(Integer kind);
 }

@@ -1,6 +1,7 @@
 package com.ctg.flag.service.impl;
 
 import com.ctg.flag.dao.DepartmentDao;
+import com.ctg.flag.enums.DepartmentKindEnum;
 import com.ctg.flag.pojo.entity.Department;
 import com.ctg.flag.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,6 @@ public class DepartmentServiceImpl implements DepartmentService{
      */
     @Override
     public List<Department> findAllByAuthcode() {
-        return departmentDao.findAllByAuthcode();
+        return departmentDao.findAllByKind(DepartmentKindEnum.ORGANIZATION.getValue());
     }
 }

@@ -5,14 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-<<<<<<< HEAD
-
-/**
- * 管理员领域对象
- */
-
-=======
->>>>>>> 5b5b3b4e4372d9e47484f01f8a7bf67a87f10db8
 @Entity
 @Table(name = "admin", schema = "flag")
 public class Admin {

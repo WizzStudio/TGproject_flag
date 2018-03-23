@@ -39,7 +39,7 @@ public class DepartmentController {
      * @param session
      * @return 验证成功：1，失败：0
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/authCode", method = RequestMethod.GET)
     public ResponseDto getDepartment(@RequestParam(name = "authCode") String authCode, HttpSession session) {
         //从session域中获取表单user对象
         User from = (User) session.getAttribute("user");

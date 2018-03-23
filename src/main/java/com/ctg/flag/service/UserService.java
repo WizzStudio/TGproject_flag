@@ -23,4 +23,6 @@ public interface UserService {
      * @param user 修改后的user
      */
     void update(User user);
+
+    User getUserById(Integer id);
 }

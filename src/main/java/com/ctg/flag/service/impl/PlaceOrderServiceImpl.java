@@ -5,6 +5,8 @@ import com.ctg.flag.dao.PlaceOrderDao;
 import com.ctg.flag.enums.PlaceOrderStateEnum;
 import com.ctg.flag.pojo.dto.OptionDto;
 import com.ctg.flag.pojo.dto.OrderManageDto;
+import com.ctg.flag.pojo.dto.PlaceOrderDetailDto;
+import com.ctg.flag.pojo.entity.Place;
 import com.ctg.flag.pojo.entity.PlaceOrder;
 import com.ctg.flag.service.PlaceOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,6 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 
     @Override
     public List<OptionDto<Integer, OrderManageDto>> listPlaceOfOrderByUid(Integer id) {
-        System.out.println(id);
         // 获得该用户所有未删除的订单
         List<PlaceOrder> list = placeOrderDao.findAllByUidAndStateNot(id, PlaceOrderStateEnum.DELETED.getValue());
 
@@ -52,5 +53,17 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
     @Override
     public void save(PlaceOrder placeOrder) {
         placeOrderDao.save(placeOrder);
+    }
+
+    @Override
+    public PlaceOrderDetailDto getPlaceOrderById(Integer oid) {
+        PlaceOrder placeOrder = placeOrderDao.getById(oid);
+        if (placeOrder == null) {
+            return null;
+        }
+        Place place = placeDao.findById(placeOrder.getPid()).get();
+
+        return new PlaceOrderDetailDto(placeOrder.getId(), place.getName(), placeOrder.getState(),
+                placeOrder.getStartTime(), placeOrder.getEndTime(), placeOrder.getFeedback());
     }
 }
