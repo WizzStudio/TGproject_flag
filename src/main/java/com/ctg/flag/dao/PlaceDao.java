@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlaceDao extends JpaRepository<Place, Integer> {
 
-<<<<<<< HEAD
+
     Place getPlaceByid(Integer id);
 =======
     Place findById(int id);

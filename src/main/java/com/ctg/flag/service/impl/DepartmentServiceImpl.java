@@ -34,12 +34,17 @@ public class DepartmentServiceImpl implements DepartmentService{
         return departmentDao.findByAuthCode(authCode);
     }
 
+    @Override
+    public List<Department> findAllByKind() {
+        return departmentDao.findAllByKind();
+    }
+
     /**
      * 返回所属机构列表
      * @return
      */
-    @Override
+
     public List<Department> findAllByAuthcode() {
-        return departmentDao.findAllByAuthcode();
+        return departmentDao.findAllByKind();
     }
 }

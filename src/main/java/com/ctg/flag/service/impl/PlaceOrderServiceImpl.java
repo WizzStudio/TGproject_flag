@@ -7,6 +7,7 @@ import com.ctg.flag.pojo.dto.OptionDto;
 import com.ctg.flag.pojo.dto.OrderManageDto;
 import com.ctg.flag.pojo.entity.PlaceOrder;
 import com.ctg.flag.service.PlaceOrderService;
+import com.sun.corba.se.impl.interceptors.PICurrent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,5 +53,10 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
     @Override
     public void save(PlaceOrder placeOrder) {
         placeOrderDao.save(placeOrder);
+    }
+
+    @Override
+    public void findById(Integer pid) {
+        placeOrderDao.getById(pid);
     }
 }

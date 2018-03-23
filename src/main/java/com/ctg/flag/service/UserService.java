@@ -23,4 +23,11 @@ public interface UserService {
      * @param user 修改后的user
      */
     void update(User user);
+
+    /**
+     * 按用户id查询用户
+     * @param userId
+     * @return
+     */
+     User findById(Integer userId);
 }
