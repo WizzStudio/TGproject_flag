@@ -2,9 +2,12 @@ package com.ctg.flag.pojo.entity;
 
 import javax.persistence.Entity;
 
+<<<<<<< HEAD
 /**
  * 管理员领域对象
  */
+=======
+>>>>>>> 6caf28e6d417baa46593dd80449d4aec4a8bc4b4
 @Entity
 public class Admin {
     private Integer id;
