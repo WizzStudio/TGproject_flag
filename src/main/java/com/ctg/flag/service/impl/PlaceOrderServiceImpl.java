@@ -53,4 +53,13 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
     public void save(PlaceOrder placeOrder) {
         placeOrderDao.save(placeOrder);
     }
+
+    /**
+     *
+     * 状态码小于state的预约事件
+     */
+    @Override
+    public List<PlaceOrder> personOrderNum(int state){
+        return placeOrderDao.findAllByStateLessThan(state);
+    }
 }

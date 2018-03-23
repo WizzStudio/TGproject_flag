@@ -6,6 +6,8 @@ import com.ctg.flag.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class PlaceServiceImpl implements PlaceService {
 
@@ -26,10 +28,14 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public void update(Place place){
+
         Place p = placeDao.findById((int)place.getId());
+
         p.setDescription(place.getDescription());
         p.setAid(place.getAid());
         p.setKind(place.getKind());
+        p.setName(place.getName());
+
         placeDao.save(p);
     }
 
@@ -44,5 +50,10 @@ public class PlaceServiceImpl implements PlaceService {
         Place p = placeDao.findById((int)place.getId());
         p.setCount(p.getId()+(Integer)1);
         placeDao.save(p);
+    }
+
+    @Override
+    public List<Place> browse(){
+        return placeDao.findAll();
     }
 }

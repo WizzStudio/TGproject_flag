@@ -9,4 +9,11 @@ import java.util.List;
 @Repository
 public interface PlaceOrderDao extends JpaRepository<PlaceOrder, Integer> {
     List<PlaceOrder> findAllByUidAndStateNot(Integer id, Integer state);
+
+    /**
+     *
+     * 寻找状态码小于num的预约事件
+     * 为了找到一个场地正在预约的人数，状态码为0和1
+     */
+    List<PlaceOrder> findAllByStateLessThan(int num);
 }

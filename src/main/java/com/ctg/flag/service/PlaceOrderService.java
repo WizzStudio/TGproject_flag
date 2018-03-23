@@ -10,4 +10,10 @@ public interface PlaceOrderService {
     List<OptionDto<Integer, OrderManageDto>> listPlaceOfOrderByUid(Integer id);
 
     void save(PlaceOrder placeOrder);
+
+    /**
+     *
+     * 状态码小于state的预约事件
+     */
+    List<PlaceOrder> personOrderNum(int state);
 }
