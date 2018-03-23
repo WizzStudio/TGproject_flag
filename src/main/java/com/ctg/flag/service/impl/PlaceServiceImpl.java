@@ -9,15 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlaceServiceImpl implements PlaceService {
 
-    PlaceDao placeDao;
+    private PlaceDao placeDao;
 
     @Autowired
     public PlaceServiceImpl(PlaceDao placeDao){ this.placeDao = placeDao; }
 
     @Override
     public Place getPlace(int id){
-        Place place = placeDao.findById(id);
-        return place;
+        return placeDao.findById(id);
     }
 
     @Override
@@ -42,8 +41,8 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public void setCount(Place place){
-        Place p = placeDao.finById((int)place.getId());
-        p.setCount(p.getId()+1);
+        Place p = placeDao.findById((int)place.getId());
+        p.setCount(p.getId()+(Integer)1);
         placeDao.save(p);
     }
 }

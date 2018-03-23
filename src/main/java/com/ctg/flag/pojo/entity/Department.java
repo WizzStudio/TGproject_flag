@@ -1,13 +1,22 @@
 package com.ctg.flag.pojo.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "department", schema = "flag")
 public class Department {
-    private Integer id;
+    @Id
+    @GeneratedValue
+    private Integer id; //部门id
 
-    private String name;
+    private String name;  //部门名称
 
-    private String authcode;
+    private String authcode; //部门身份认证码
 
-    private Integer kind;
+    private Integer kind; //请求种类码
 
     public Integer getId() {
         return id;

@@ -2,13 +2,12 @@ package com.ctg.flag.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 
 /**
  * Json工具类
  */
-public class JsonUtil {
+public class JsonUtils {
     /**
      * 将对象转为json
      *
