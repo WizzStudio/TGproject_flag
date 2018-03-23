@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserServiceImpl implements UserService{
-    UserDao userDao;
+    private final UserDao userDao;
 
     @Autowired
     public UserServiceImpl(UserDao userDao) {
-        userDao = userDao;
+        this.userDao = userDao;
     }
 
 

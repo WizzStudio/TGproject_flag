@@ -20,7 +20,12 @@ public enum PlaceOrderStateEnum {
     /**
      * 未通过
      */
-    REFUSED(3);
+    REFUSED(3),
+
+    /**
+     * 删除
+     */
+    DELETED(4);
 
     private Integer value;
 

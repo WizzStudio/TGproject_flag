@@ -25,4 +25,4 @@ public enum PlaceKindEnum {
     public Integer getValue(){
         return value;
     }
-    }
+}
