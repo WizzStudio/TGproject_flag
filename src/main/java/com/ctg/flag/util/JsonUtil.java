@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Json工具类
  */
-public class JsonUtils {
+public class JsonUtil {
     /**
      * 将对象转为json
      *

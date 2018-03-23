@@ -14,11 +14,21 @@ public class Place {
 
     private Integer kind;
 
+    private String name;
+
     private Integer count;
 
     private Integer aid;
 
     private String description;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

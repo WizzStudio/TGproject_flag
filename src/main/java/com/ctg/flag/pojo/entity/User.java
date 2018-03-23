@@ -3,6 +3,8 @@ package com.ctg.flag.pojo.entity;
 import com.ctg.flag.enums.UserInfoStateEnum;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user", schema = "flag")
@@ -11,7 +13,8 @@ public class User {
     @GeneratedValue
     private Integer id;
 
-    private String studentid = "000000000000";
+    @NotNull
+    private String studentId = "000000000000";
 
     private String position = "default";
 
@@ -39,13 +42,14 @@ public class User {
         this.id = id;
     }
 
-    public String getStudentid() {
-        return studentid;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid == null ? null : studentid.trim();
+    public void setStudentId(String studentId) {
+        this.studentId = studentId == null ? null : studentId.trim();
     }
+
 
     public String getPosition() {
         return position;

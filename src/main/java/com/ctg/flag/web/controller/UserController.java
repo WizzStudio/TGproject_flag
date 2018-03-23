@@ -36,7 +36,7 @@ public class UserController {
         }
 
         User user = userService.login(openid);
-        session.setAttribute("user", user);
+        session.setAttribute("user", user.getId());
 
         if (user.getState().equals(UserInfoStateEnum.INCOMPLETED.getValue())) {
             return ResponseDto.failed("not complete user info.");
@@ -49,6 +49,7 @@ public class UserController {
      * 完善个人信息，或者修改个人信息
      * @param user 表单自动生成的user
      */
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseDto updateUserInfo(User user, HttpSession session) {
         User sUser = (User) session.getAttribute("user");
 
@@ -60,9 +61,6 @@ public class UserController {
         user.setOpenid(sUser.getOpenid());
         user.setState(UserInfoStateEnum.COMPLETED.getValue());
         userService.update(user);
-
-        // 更新session中的user
-        session.setAttribute("user", user);
 
         return ResponseDto.succeed();
     }

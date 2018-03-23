@@ -14,7 +14,7 @@ public class Department {
 
     private String name;  //部门名称
 
-    private String authcode; //部门身份认证码
+    private String authCode; //部门身份认证码
 
     private Integer kind; //请求种类码
 
@@ -34,12 +34,12 @@ public class Department {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getAuthcode() {
-        return authcode;
+    public String getAuthCode() {
+        return authCode;
     }
 
-    public void setAuthcode(String authcode) {
-        this.authcode = authcode == null ? null : authcode.trim();
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
     }
 
     public Integer getKind() {
