@@ -28,4 +28,12 @@ public class OrderManageDto {
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
     }
+
+    @Override
+    public String toString() {
+        return "OrderManageDto{" +
+                "createTime=" + createTime +
+                ", placeName='" + placeName + '\'' +
+                '}';
+    }
 }

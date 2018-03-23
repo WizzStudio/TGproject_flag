@@ -3,29 +3,36 @@ package com.ctg.flag.web.controller;
 import com.ctg.flag.enums.PlaceOrderStateEnum;
 import com.ctg.flag.pojo.dto.OptionDto;
 import com.ctg.flag.pojo.dto.OrderManageDto;
+import com.ctg.flag.pojo.dto.PlaceOrderDetailDto;
 import com.ctg.flag.pojo.dto.ResponseDto;
 import com.ctg.flag.pojo.entity.Place;
 import com.ctg.flag.pojo.entity.PlaceOrder;
 import com.ctg.flag.pojo.entity.User;
 import com.ctg.flag.service.PlaceOrderService;
+import com.ctg.flag.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
+=======
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping(value = "/placeOrder")
 public class PlaceOrderController {
     private final PlaceOrderService placeOrderService;
+    private final UserService userService;
 
     @Autowired
-    public PlaceOrderController(PlaceOrderService placeOrderService) {
+    public PlaceOrderController(PlaceOrderService placeOrderService, UserService userService) {
         this.placeOrderService = placeOrderService;
+        this.userService = userService;
     }
 
     /**
@@ -33,11 +40,11 @@ public class PlaceOrderController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseDto postPlaceOrder(PlaceOrder placeOrder, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
+        Integer uid = (Integer) session.getAttribute("userId");
+        if (uid == null) {
             return ResponseDto.failed("not log in");
         }
-        placeOrder.setUid(user.getId());
+        placeOrder.setUid(uid);
         placeOrderService.save(placeOrder);
 
         return ResponseDto.succeed("save successfully");
@@ -48,28 +55,29 @@ public class PlaceOrderController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseDto getPlaceOrder(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-//        if (user == null) {
-//            return ResponseDto.failed("not log in");
-//        }
+        Integer uid = (Integer) session.getAttribute("userId");
+        if (uid == null) {
+            return ResponseDto.failed("not log in");
+        }
 
-        user = new User();
-        user.setId(1);
-        List<OptionDto<Integer, OrderManageDto> > list = placeOrderService.listPlaceOfOrderByUid(user.getId());
-        list.forEach((opt) -> {
-            Map map = (Map) opt.getOptVal();
-            System.out.println(map.get("createTime"));
+        List<OptionDto<Integer, OrderManageDto> > list = placeOrderService.listPlaceOfOrderByUid(uid);
+        list.sort((opt1, opt2) -> {
+            OrderManageDto o1 = opt1.getOptVal();
+            OrderManageDto o2 = opt2.getOptVal();
+            return o1.getCreateTime().compareTo(o2.getCreateTime());
         });
+
         return ResponseDto.succeed(null, list);
     }
 
     /**
+<<<<<<< HEAD
      * 取消预约场地
      * @param oid
      * @return
      */
-    @RequestMapping(method = RequestMethod.DELETE)
-   public ResponseDto cancelPlaceOrder(Integer oid ){
+    @RequestMapping(value = "/{oid}",method = RequestMethod.DELETE)
+   public ResponseDto cancelPlaceOrder(@PathVariable(name = "oid") Integer oid ){
         //1、根据场地id获取一个placeOrder对象
        PlaceOrder placeOrder=placeOrderService.findById(oid);
        if (!placeOrder.getState().equals(PlaceOrderStateEnum.DELETED.getValue())) {
@@ -80,4 +88,22 @@ public class PlaceOrderController {
             return ResponseDto.failed();
        }
    }
+=======
+     * 获取订单详情
+     */
+    @RequestMapping(value = "/{oid}", method = RequestMethod.GET)
+    public ResponseDto getPlaceOrderDetail(@PathVariable(name = "oid") Integer oid, HttpSession session) {
+        Integer uid = (Integer) session.getAttribute("userId");
+        if (uid == null) {
+            return ResponseDto.failed("not log in");
+        }
+
+        PlaceOrderDetailDto placeOrderDetailDto = placeOrderService.getPlaceOrderById(oid);
+        if (placeOrderDetailDto == null) {
+            return ResponseDto.failed("placeOrderId = " + oid + " not existed");
+        } else {
+            return ResponseDto.succeed(null, placeOrderDetailDto);
+        }
+    }
+>>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
 }

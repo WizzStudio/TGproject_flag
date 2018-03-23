@@ -42,7 +42,11 @@ public class DepartmentController {
      * @param session
      * @return 验证成功：1，失败：0
      */
+<<<<<<< HEAD
     @RequestMapping(value ="authCode" ,method = RequestMethod.GET)
+=======
+    @RequestMapping(value = "/authCode", method = RequestMethod.GET)
+>>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
     public ResponseDto getDepartment(@RequestParam(name = "authCode") String authCode, HttpSession session) {
         Integer userId=(Integer) session.getAttribute("userId");
 
