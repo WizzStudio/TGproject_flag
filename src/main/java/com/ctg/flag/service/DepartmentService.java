@@ -2,6 +2,8 @@ package com.ctg.flag.service;
 
 import com.ctg.flag.pojo.entity.Department;
 
+import java.util.List;
+
 /**
  * @Description:
  * @Author: StormWangxhu
@@ -14,4 +16,10 @@ public interface DepartmentService {
      * @return
      */
     Department findByAuthCode(String authCode);
+
+    /**
+     * 返回所属机构列表
+     * @return
+     */
+    List<Department> findAllByAuthcode();
 }

@@ -4,6 +4,8 @@ import com.ctg.flag.pojo.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @Description:
  * @Author: StormWangxhu
@@ -18,4 +20,10 @@ public interface DepartmentDao extends JpaRepository<Department,Integer> {
      * @return
      */
     Department findByAuthCode(String authCode);
+
+    /**
+     * 查询所属机构列表
+     * @return
+     */
+    List<Department> findAllByAuthcode();
 }

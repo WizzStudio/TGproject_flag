@@ -6,15 +6,13 @@ import com.ctg.flag.pojo.entity.Department;
 import com.ctg.flag.pojo.entity.User;
 import com.ctg.flag.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.sql.ResultSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Description:
@@ -28,11 +26,19 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
 
+
     @Autowired
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
 
+    /**
+     * 验证身份认证码功能
+     *
+     * @param authCode
+     * @param session
+     * @return 验证成功：1，失败：0
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseDto getDepartment(@RequestParam(name = "authCode") String authCode, HttpSession session) {
         //从session域中获取表单user对象
@@ -52,4 +58,28 @@ public class DepartmentController {
         }
     }
 
+    /**
+     * 返会所属机构列表功能
+     * key:authCode,value:name
+     *
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseDto getDepartmentNameList() {
+        //通过身份认证码查询所有部门
+        List<Department> list=departmentService.findAllByAuthcode();
+        //Map，存放部门id,部门名称
+        Map<Integer,String> dPartmentMap = new HashMap<>();
+        if (list!=null){
+            for (Department department:list){
+                String name = department.getName();
+                Integer id = department.getId();
+                dPartmentMap.put(id,name);
+            }
+            return ResponseDto.succeed("dPartmentMapList",dPartmentMap);//返回部门列表
+        }else {
+            return ResponseDto.failed();//查询为空，则返回失败状态码
+        }
+    }
 }
+

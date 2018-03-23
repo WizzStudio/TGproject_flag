@@ -6,6 +6,8 @@ import com.ctg.flag.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Description:
  * @Author: StormWangxhu
@@ -30,5 +32,14 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Override
     public Department findByAuthCode(String authCode) {
         return departmentDao.findByAuthCode(authCode);
+    }
+
+    /**
+     * 返回所属机构列表
+     * @return
+     */
+    @Override
+    public List<Department> findAllByAuthcode() {
+        return departmentDao.findAllByAuthcode();
     }
 }

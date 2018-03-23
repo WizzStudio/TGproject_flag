@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface PlaceDao extends JpaRepository<Place, Integer> {
 
-    Place getPlaceByid(Tnteger id);
+    Place getPlaceByid(Integer id);
 
     @Transactional
     @Modifying
