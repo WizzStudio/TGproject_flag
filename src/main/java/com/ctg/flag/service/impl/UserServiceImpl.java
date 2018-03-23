@@ -6,6 +6,8 @@ import com.ctg.flag.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.print.DocFlavor;
+
 @Component
 public class UserServiceImpl implements UserService{
     private final UserDao userDao;
@@ -29,6 +31,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void update(User user) {
+        userDao.save(user);
+    }
 
+    @Override
+    public User getUserById(Integer id) {
+        return userDao.findById(id).get();
+    }
+
+    @Override
+    public User findById(Integer userId) {
+        return userDao.getUserById(userId);
     }
 }

@@ -5,6 +5,7 @@ import com.ctg.flag.pojo.dto.ResponseDto;
 import com.ctg.flag.pojo.entity.Department;
 import com.ctg.flag.pojo.entity.User;
 import com.ctg.flag.service.DepartmentService;
+import com.ctg.flag.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +26,13 @@ import java.util.*;
 public class DepartmentController {
 
     private final DepartmentService departmentService;
+    private UserService userService;
 
 
     @Autowired
-    public DepartmentController(DepartmentService departmentService) {
+    public DepartmentController(DepartmentService departmentService,UserService userService) {
         this.departmentService = departmentService;
+        this.userService=userService;
     }
 
     /**
@@ -39,12 +42,17 @@ public class DepartmentController {
      * @param session
      * @return 验证成功：1，失败：0
      */
-    @RequestMapping(method = RequestMethod.GET)
+<<<<<<< HEAD
+    @RequestMapping(value ="authCode" ,method = RequestMethod.GET)
+=======
+    @RequestMapping(value = "/authCode", method = RequestMethod.GET)
+>>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
     public ResponseDto getDepartment(@RequestParam(name = "authCode") String authCode, HttpSession session) {
-        //从session域中获取表单user对象
-        User from = (User) session.getAttribute("user");
+        Integer userId=(Integer) session.getAttribute("userId");
+
+        User form= userService.findById(userId);
         //获取user中的部门id
-        Integer did = from.getDid();
+        Integer did = form.getDid();
         //从数据库中查询部门
         Department department = departmentService.findByAuthCode(authCode);
         if (department == null) {//若为空，说明验证码错误
@@ -67,7 +75,7 @@ public class DepartmentController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseDto getDepartmentNameList() {
         //通过身份认证码查询所有部门
-        List<Department> list=departmentService.findAllByAuthcode();
+        List<Department> list=departmentService.findAllByKind();
         //Map，存放部门id,部门名称
         Map<Integer,String> dPartmentMap = new HashMap<>();
         if (list!=null){
@@ -76,7 +84,7 @@ public class DepartmentController {
                 Integer id = department.getId();
                 dPartmentMap.put(id,name);
             }
-            return ResponseDto.succeed("dPartmentMapList",dPartmentMap);//返回部门列表
+            return ResponseDto.succeed(null,dPartmentMap);//返回部门列表
         }else {
             return ResponseDto.failed();//查询为空，则返回失败状态码
         }
