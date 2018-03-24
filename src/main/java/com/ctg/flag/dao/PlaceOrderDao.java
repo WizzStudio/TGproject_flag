@@ -22,7 +22,7 @@ public interface PlaceOrderDao extends JpaRepository<PlaceOrder, Integer> {
      *
      * 根据id和状态码查询事件
      */
-    List<PlaceOrder> findAllByIdAndState(int id,int state);
+    List<PlaceOrder> findAllByPidAndState(int id,int state);
 
     /**
      * 根据id查询场地

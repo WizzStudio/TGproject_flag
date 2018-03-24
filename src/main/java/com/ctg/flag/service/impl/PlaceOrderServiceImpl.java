@@ -70,7 +70,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
      * id等于id且状态码等于state的预约事件
      */
     @Override
-    public List<PlaceOrder> successOrderNum(int id,int state){return placeOrderDao.findAllByIdAndState(id, state);}
+    public List<PlaceOrder> successOrderNum(int id,int state){return placeOrderDao.findAllByPidAndState(id, state);}
 
     @Override
     public PlaceOrder getPlaceOrderById(Integer pid) {

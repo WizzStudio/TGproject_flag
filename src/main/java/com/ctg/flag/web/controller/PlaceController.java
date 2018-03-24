@@ -9,6 +9,7 @@ import com.ctg.flag.pojo.dto.PlaceDto;
 import com.ctg.flag.pojo.entity.PlaceOrder;
 import com.ctg.flag.service.PlaceOrderService;
 import com.ctg.flag.service.PlaceService;;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,12 @@ public class PlaceController {
     private PlaceOrderService placeOrderService;
 
     private PlaceService placeService;
+
+    @Autowired
+    public PlaceController(PlaceOrderService placeOrderService,PlaceService placeService){
+        this.placeOrderService = placeOrderService;
+        this.placeService = placeService;
+    }
 
     @RequestMapping(value = "/place",method = RequestMethod.GET)
     public ResponseDto placeList(){
@@ -61,10 +68,11 @@ public class PlaceController {
 
     }
 
-    @RequestMapping(value = "/place/{id}&{date}",method = RequestMethod.GET)
-    public ResponseDto placeDetail(@PathVariable int id,@PathVariable String date){
+    @RequestMapping(value = "/place/{id}/{date}",method = RequestMethod.GET)
+    public ResponseDto placeDetail(@PathVariable("id") int id,@PathVariable("date") String date){
 
         Place place = placeService.getPlace(id);
+
 
         //正在被预约的场地列表
         List<PlaceOrder> placeOrderList = placeOrderService.personOrderNum(2);
@@ -104,6 +112,15 @@ public class PlaceController {
 
             }
 
+        }
+        if(placeDetailDto.getSuccessTime().size()==0 && placeDetailDto.getTiming().size() !=0){
+            return ResponseDto.succeed("该场地无人正在预约",placeDetailDto);
+        }
+        else if(placeDetailDto.getSuccessTime().size()!=0 && placeDetailDto.getTiming().size() ==0){
+            return ResponseDto.succeed("该场地无人已预约",placeDetailDto);
+        }
+        else if(placeDetailDto.getSuccessTime().size()==0 && placeDetailDto.getTiming().size() ==0){
+            return ResponseDto.succeed("该场地空闲无人预约或准备预约",placeDetailDto);
         }
 
         return ResponseDto.succeed("ok",placeDetailDto);
