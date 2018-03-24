@@ -26,8 +26,12 @@ public interface UserService {
 
     /**
      * 按用户id查询用户
-     * @param userId
+     * @param id
      * @return
      */
+<<<<<<< HEAD
      User findById(Integer userId);
+=======
+    User getUserById(Integer id);
+>>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
 }

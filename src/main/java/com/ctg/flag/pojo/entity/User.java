@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "user", schema = "flag")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull

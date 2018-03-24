@@ -38,10 +38,12 @@ public class PlaceOrderController {
         if (uid == null) {
             return ResponseDto.failed("not log in");
         }
+
         placeOrder.setUid(uid);
+        placeOrder.setState(PlaceOrderStateEnum.PENDING.getValue());
         placeOrderService.save(placeOrder);
 
-        return ResponseDto.succeed("save successfully");
+        return ResponseDto.succeed();
     }
 
     /**
@@ -58,7 +60,7 @@ public class PlaceOrderController {
         list.sort((opt1, opt2) -> {
             OrderManageDto o1 = opt1.getOptVal();
             OrderManageDto o2 = opt2.getOptVal();
-            return o1.getCreateTime().compareTo(o2.getCreateTime());
+            return o2.getCreateTime().compareTo(o1.getCreateTime());
         });
 
         return ResponseDto.succeed(null, list);
@@ -84,6 +86,10 @@ public class PlaceOrderController {
             return ResponseDto.failed();
        }
    }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
     /**
      * 获取订单详情
      */
@@ -94,12 +100,15 @@ public class PlaceOrderController {
             return ResponseDto.failed("not log in");
         }
 
-        PlaceOrderDetailDto placeOrderDetailDto = placeOrderService.getPlaceOrderById(oid);
+        PlaceOrderDetailDto placeOrderDetailDto = placeOrderService.getExistedPlaceOrderById(oid);
         if (placeOrderDetailDto == null) {
             return ResponseDto.failed("placeOrderId = " + oid + " not existed");
         } else {
             return ResponseDto.succeed(null, placeOrderDetailDto);
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
 }
