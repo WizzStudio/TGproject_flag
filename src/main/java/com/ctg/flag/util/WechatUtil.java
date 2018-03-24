@@ -26,6 +26,12 @@ public class WechatUtil {
 
     private static RestTemplate restTemplate = new RestTemplate();
 
+    /**
+     * 获取用户唯一openid
+     * @param code  前台给的code
+     * @return  openid
+     * @throws Exception  请求失败
+     */
     public static String getOpenId(String code) throws Exception {
         REQUEST_PARAMS.put("js_code", code);
 

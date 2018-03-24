@@ -30,7 +30,8 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseDto login(@RequestParam(name = "code", defaultValue = "") String code,
                              HttpSession session) throws Exception{
-        String openid = WechatUtil.getOpenId(code);
+//        String openid = WechatUtil.getOpenId(code);
+        String openid = "1";
         if (openid == null) {
             return ResponseDto.failed("log in failed, code is wrong");
         }
@@ -51,13 +52,14 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseDto updateUserInfo(User user, HttpSession session) {
-        User sUser = (User) session.getAttribute("userId");
-
-        if (sUser == null) {
+        Integer uid = (Integer) session.getAttribute("userId");
+        if (uid == null) {
             return ResponseDto.failed("not log in");
         }
 
-        user.setId(sUser.getId());
+        User sUser = userService.getUserById(uid);
+
+        user.setId(uid);
         user.setOpenid(sUser.getOpenid());
         user.setState(UserInfoStateEnum.COMPLETED.getValue());
         userService.update(user);

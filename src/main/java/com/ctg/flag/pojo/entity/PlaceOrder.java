@@ -1,5 +1,8 @@
 package com.ctg.flag.pojo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -7,24 +10,78 @@ import java.util.Date;
 @Table(name = "place_order", schema = "flag")
 public class PlaceOrder {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer state;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date startTime;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date endTime;
 
-    private String feedback;
+    private String department;
+
+    private String activity;
+
+    private String people;
+
+    private String prop;
+
+    private String content;
 
     private String admin;
 
     private String phone;
 
+    private String feedback;
+
     private Integer uid;
 
     private Integer pid;
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+
+    public String getPeople() {
+        return people;
+    }
+
+    public void setPeople(String people) {
+        this.people = people;
+    }
+
+    public String getProp() {
+        return prop;
+    }
+
+    public void setProp(String prop) {
+        this.prop = prop;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public String getFeedback() {
         return feedback;
