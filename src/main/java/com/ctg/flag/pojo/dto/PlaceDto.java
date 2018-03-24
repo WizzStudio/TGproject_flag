@@ -10,11 +10,13 @@ public class PlaceDto {
 
     private Integer personOrderNum;//正在预约人数
 
-    public PlaceDto(Integer id,String name,Integer count,Integer personOrderNum){
+    public PlaceDto(){}
+
+    public PlaceDto(Integer id,String name,Integer count){
         this.id = id;
         this.name = name;
         this.count = count;
-        this.personOrderNum = personOrderNum;
+        this.personOrderNum = 0;
     }
 
     public Integer getId() {
