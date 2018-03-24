@@ -5,20 +5,14 @@ import com.ctg.flag.pojo.dto.OptionDto;
 import com.ctg.flag.pojo.dto.OrderManageDto;
 import com.ctg.flag.pojo.dto.PlaceOrderDetailDto;
 import com.ctg.flag.pojo.dto.ResponseDto;
-import com.ctg.flag.pojo.entity.Place;
 import com.ctg.flag.pojo.entity.PlaceOrder;
-import com.ctg.flag.pojo.entity.User;
 import com.ctg.flag.service.PlaceOrderService;
 import com.ctg.flag.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.RequestParam;
-=======
 import org.springframework.web.bind.annotation.RestController;
->>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -71,7 +65,6 @@ public class PlaceOrderController {
     }
 
     /**
-<<<<<<< HEAD
      * 取消预约场地
      * @param oid
      * @return
@@ -80,6 +73,9 @@ public class PlaceOrderController {
    public ResponseDto cancelPlaceOrder(@PathVariable(name = "oid") Integer oid ){
         //1、根据场地id获取一个placeOrder对象
        PlaceOrder placeOrder=placeOrderService.findById(oid);
+       if (placeOrder==null){//若id错误，则返回查询失败码：1
+           ResponseDto.failed();
+       }
        if (!placeOrder.getState().equals(PlaceOrderStateEnum.DELETED.getValue())) {
            placeOrder.setState(PlaceOrderStateEnum.DELETED.getValue());
            placeOrderService.save(placeOrder);
@@ -88,7 +84,7 @@ public class PlaceOrderController {
             return ResponseDto.failed();
        }
    }
-=======
+    /**
      * 获取订单详情
      */
     @RequestMapping(value = "/{oid}", method = RequestMethod.GET)
@@ -105,5 +101,5 @@ public class PlaceOrderController {
             return ResponseDto.succeed(null, placeOrderDetailDto);
         }
     }
->>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
+
 }

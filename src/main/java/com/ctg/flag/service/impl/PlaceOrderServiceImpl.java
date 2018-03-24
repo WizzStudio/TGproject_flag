@@ -9,7 +9,6 @@ import com.ctg.flag.pojo.dto.PlaceOrderDetailDto;
 import com.ctg.flag.pojo.entity.Place;
 import com.ctg.flag.pojo.entity.PlaceOrder;
 import com.ctg.flag.service.PlaceOrderService;
-import com.sun.corba.se.impl.interceptors.PICurrent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -57,10 +56,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
     }
 
     @Override
-<<<<<<< HEAD
-    public void findById(Integer pid) {
-        placeOrderDao.getById(pid);
-=======
+    public PlaceOrder findById(Integer pid) {
+        return placeOrderDao.getById(pid);
+    }
+
+
     public PlaceOrderDetailDto getPlaceOrderById(Integer oid) {
         PlaceOrder placeOrder = placeOrderDao.getById(oid);
         if (placeOrder == null) {
@@ -70,6 +70,5 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 
         return new PlaceOrderDetailDto(placeOrder.getId(), place.getName(), placeOrder.getState(),
                 placeOrder.getStartTime(), placeOrder.getEndTime(), placeOrder.getFeedback());
->>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
     }
 }

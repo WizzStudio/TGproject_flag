@@ -21,5 +21,6 @@ public interface DepartmentService {
      * 返回所属机构列表
      * @return
      */
-    List<Department> findAllByKind();
+
+    List<Department> findAll();
 }

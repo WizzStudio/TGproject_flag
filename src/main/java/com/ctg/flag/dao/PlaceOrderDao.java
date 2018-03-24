@@ -10,14 +10,11 @@ import java.util.List;
 @Repository
 public interface PlaceOrderDao extends JpaRepository<PlaceOrder, Integer> {
     List<PlaceOrder> findAllByUidAndStateNot(Integer id, Integer state);
-<<<<<<< HEAD
 
     /**
      * 根据id查询场地
      * @param id
      * @return
      */
-=======
->>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
     PlaceOrder getById(Integer id);
 }
