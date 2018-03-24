@@ -2,11 +2,28 @@ package com.ctg.flag.pojo.dto;
 
 public class PlaceDto {
 
-    private String name;
+    private Integer id;//场地id
 
-    private Integer count;
+    private String name;//场地名称
 
-    private Integer personOrderNum;
+    private Integer count;//本周预约次数
+
+    private Integer personOrderNum;//正在预约人数
+
+    public PlaceDto(Integer id,String name,Integer count,Integer personOrderNum){
+        this.id = id;
+        this.name = name;
+        this.count = count;
+        this.personOrderNum = personOrderNum;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

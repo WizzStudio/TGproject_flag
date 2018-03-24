@@ -18,6 +18,12 @@ public interface PlaceOrderDao extends JpaRepository<PlaceOrder, Integer> {
     List<PlaceOrder> findAllByStateLessThan(int num);
 
     /**
+     *
+     * 根据id和状态码查询事件
+     */
+    List<PlaceOrder> findAllByIdAndState(int id,int state);
+
+    /**
      * 根据id查询场地
      * @param id
      * @return

@@ -21,6 +21,14 @@ public interface PlaceOrderService {
      */
     List<PlaceOrder> personOrderNum(int state);
 
+    /**
+     *
+     * id的成功预约的事件
+     * 即id状态码等于4的事件
+     *
+     */
+    List<PlaceOrder> successOrderNum(int id,int state);
+
     PlaceOrder findById(Integer pid);
 
     PlaceOrderDetailDto getPlaceOrderById(Integer oid);
