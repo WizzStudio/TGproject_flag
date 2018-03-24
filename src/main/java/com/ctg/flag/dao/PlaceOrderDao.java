@@ -24,4 +24,5 @@ public interface PlaceOrderDao extends JpaRepository<PlaceOrder, Integer> {
      */
     PlaceOrder getById(Integer id);
 
+    PlaceOrder getPlaceOrderByIdAndStateNot(Integer oid, Integer status);
 }

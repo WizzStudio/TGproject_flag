@@ -70,14 +70,13 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
         return placeOrderDao.getById(pid);
     }
 
-
     @Override
-    public PlaceOrderDetailDto getPlaceOrderById(Integer oid) {
-        PlaceOrder placeOrder = placeOrderDao.getById(oid);
+    public PlaceOrderDetailDto getExistedPlaceOrderById(Integer oid) {
+        PlaceOrder placeOrder = placeOrderDao.getPlaceOrderByIdAndStateNot(oid, PlaceOrderStateEnum.DELETED.getValue());
         if (placeOrder == null) {
             return null;
         }
-        Place place = placeDao.findById(placeOrder.getPid()).get();
+        Place place = placeDao.getPlaceById(placeOrder.getPid());
 
         return new PlaceOrderDetailDto(placeOrder.getId(), place.getName(), placeOrder.getState(),
                 placeOrder.getStartTime(), placeOrder.getEndTime(), placeOrder.getFeedback());

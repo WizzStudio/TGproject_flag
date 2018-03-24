@@ -23,5 +23,5 @@ public interface PlaceOrderService {
 
     PlaceOrder findById(Integer pid);
 
-    PlaceOrderDetailDto getPlaceOrderById(Integer oid);
+    PlaceOrderDetailDto getExistedPlaceOrderById(Integer oid);
 }
