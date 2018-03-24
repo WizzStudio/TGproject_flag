@@ -2,26 +2,22 @@ package com.ctg.flag.service;
 
 import com.ctg.flag.pojo.dto.OptionDto;
 import com.ctg.flag.pojo.dto.OrderManageDto;
-<<<<<<< HEAD
-=======
 
-import com.ctg.flag.pojo.entity.Place;
->>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
 import com.ctg.flag.pojo.dto.PlaceOrderDetailDto;
 import com.ctg.flag.pojo.entity.PlaceOrder;
 
 import java.util.List;
 
 public interface PlaceOrderService {
+    /**
+     * 通过用户id获得该用户所有未删除订单
+     */
     List<OptionDto<Integer, OrderManageDto>> listPlaceOfOrderByUid(Integer id);
 
+    /**
+     * 保存预约订单
+     */
     void save(PlaceOrder placeOrder);
-
-<<<<<<< HEAD
-    PlaceOrder findById(Integer oid);
-
-    PlaceOrderDetailDto getPlaceOrderById(Integer oid);
-=======
 
     /**
      *
@@ -37,8 +33,11 @@ public interface PlaceOrderService {
      */
     List<PlaceOrder> successOrderNum(int id,int state);
 
-    PlaceOrder findById(Integer pid);
 
+    PlaceOrder getPlaceOrderById(Integer pid);
+
+    /**
+     * 通过订单id查询未删除的订单详情
+     */
     PlaceOrderDetailDto getExistedPlaceOrderById(Integer oid);
->>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
 }

@@ -45,16 +45,11 @@ public class DepartmentController {
     @RequestMapping(value = "/authCode", method = RequestMethod.GET)
     public ResponseDto getDepartment(@RequestParam(name = "authCode") String authCode, HttpSession session) {
         Integer userId=(Integer) session.getAttribute("userId");
-<<<<<<< HEAD
         if (userId==null){
             return ResponseDto.failed("UserId："+userId);
         }
-//        userId = 1;
-        User form= userService.findById(userId);
-=======
 
         User form= userService.getUserById(userId);
->>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
         //获取user中的部门id
         Integer dId = form.getDid();
         //从数据库中查询部门
@@ -63,13 +58,9 @@ public class DepartmentController {
             return ResponseDto.failed("身份认证码错误！");
         }
         //若查询成功,比较部门id和前端传来id
-<<<<<<< HEAD
-        if (dId == department.getId()) {
-            return ResponseDto.succeed();//返回成功状态码1
-=======
-        if (did.equals(department.getId())) {
+
+        if (dId.equals(department.getId())) {
             return ResponseDto.succeed();//返回成功状态码0
->>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
         } else {
             return ResponseDto.failed();//返回失败状态码 1
         }
@@ -84,7 +75,7 @@ public class DepartmentController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseDto getDepartmentNameList() {
         //通过种类查询所有部门
-        List<Department> list=departmentService.findAll();
+        List<Department> list=departmentService.findAllByKind();
         //Map，存放部门id,部门名称
         Map<Integer,String> dPartmentMap = new HashMap<>();
         if (list!=null){

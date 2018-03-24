@@ -43,6 +43,10 @@ public class PlaceOrder {
 
     private Integer pid;
 
+    private Date createTime = new Date();
+
+    private Date updateTime = new Date();
+
     public String getDepartment() {
         return department;
     }
@@ -90,10 +94,6 @@ public class PlaceOrder {
     public void setFeedback(String feedback) {
         this.feedback = feedback;
     }
-
-    private Date createTime = new Date();
-
-    private Date updateTime = new Date();
 
     public Date getUpdateTime() {
         return updateTime;

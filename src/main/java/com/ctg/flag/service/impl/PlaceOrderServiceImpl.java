@@ -73,23 +73,12 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
     public List<PlaceOrder> successOrderNum(int id,int state){return placeOrderDao.findAllByIdAndState(id, state);}
 
     @Override
-    public PlaceOrder findById(Integer pid) {
-        return placeOrderDao.getById(pid);
+    public PlaceOrder getPlaceOrderById(Integer pid) {
+        return placeOrderDao.getPlaceOrderById(pid);
     }
 
-    @Override
-<<<<<<< HEAD
-    public PlaceOrder findById(Integer pid) {
-        return placeOrderDao.getById(pid);
-    }
-
-
-    public PlaceOrderDetailDto getPlaceOrderById(Integer oid) {
-        PlaceOrder placeOrder = placeOrderDao.getById(oid);
-=======
     public PlaceOrderDetailDto getExistedPlaceOrderById(Integer oid) {
         PlaceOrder placeOrder = placeOrderDao.getPlaceOrderByIdAndStateNot(oid, PlaceOrderStateEnum.DELETED.getValue());
->>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
         if (placeOrder == null) {
             return null;
         }

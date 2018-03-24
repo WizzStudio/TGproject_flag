@@ -7,7 +7,6 @@ import com.ctg.flag.pojo.dto.PlaceOrderDetailDto;
 import com.ctg.flag.pojo.dto.ResponseDto;
 import com.ctg.flag.pojo.entity.PlaceOrder;
 import com.ctg.flag.service.PlaceOrderService;
-import com.ctg.flag.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +20,10 @@ import java.util.List;
 @RequestMapping(value = "/placeOrder")
 public class PlaceOrderController {
     private final PlaceOrderService placeOrderService;
-    private final UserService userService;
 
     @Autowired
-    public PlaceOrderController(PlaceOrderService placeOrderService, UserService userService) {
+    public PlaceOrderController(PlaceOrderService placeOrderService) {
         this.placeOrderService = placeOrderService;
-        this.userService = userService;
     }
 
     /**
@@ -68,14 +65,12 @@ public class PlaceOrderController {
 
     /**
      * 取消预约场地
-     * @param oid
-     * @return
      */
     @RequestMapping(value = "/{oid}",method = RequestMethod.DELETE)
    public ResponseDto cancelPlaceOrder(@PathVariable(name = "oid") Integer oid ){
         //1、根据场地id获取一个placeOrder对象
-       PlaceOrder placeOrder=placeOrderService.findById(oid);
-       if (placeOrder==null){//若id错误，则返回查询失败码：1
+       PlaceOrder placeOrder = placeOrderService.getPlaceOrderById(oid);
+       if (placeOrder == null){//若id错误，则返回查询失败码：1
            ResponseDto.failed();
        }
        if (!placeOrder.getState().equals(PlaceOrderStateEnum.DELETED.getValue())) {
@@ -86,10 +81,7 @@ public class PlaceOrderController {
             return ResponseDto.failed();
        }
    }
-<<<<<<< HEAD
-=======
 
->>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
     /**
      * 获取订单详情
      */
@@ -107,8 +99,4 @@ public class PlaceOrderController {
             return ResponseDto.succeed(null, placeOrderDetailDto);
         }
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
 }

@@ -31,7 +31,7 @@ public class UserController {
     public ResponseDto login(@RequestParam(name = "code", defaultValue = "") String code,
                              HttpSession session) throws Exception{
 //        String openid = WechatUtil.getOpenId(code);
-        String openid = "1";
+        String openid = "openid";
         if (openid == null) {
             return ResponseDto.failed("log in failed, code is wrong");
         }

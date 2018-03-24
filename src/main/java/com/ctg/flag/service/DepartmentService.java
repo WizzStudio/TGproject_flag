@@ -22,5 +22,5 @@ public interface DepartmentService {
      * @return
      */
 
-    List<Department> findAll();
+    List<Department> findAllByKind();
 }
