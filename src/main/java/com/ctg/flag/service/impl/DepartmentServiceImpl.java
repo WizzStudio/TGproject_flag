@@ -36,12 +36,21 @@ public class DepartmentServiceImpl implements DepartmentService{
         return departmentDao.findByAuthCode(authCode);
     }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
     /**
      * 返回所属机构列表
      * @return
      */
     @Override
+<<<<<<< HEAD
+    public List<Department> findAll() {
+        return departmentDao.findAll();
+=======
     public List<Department> findAllByKind() {
         return departmentDao.findAllByKind(DepartmentKindEnum.ORGANIZATION.getValue());
+>>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
     }
 }

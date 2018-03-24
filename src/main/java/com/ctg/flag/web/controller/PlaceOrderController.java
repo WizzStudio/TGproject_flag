@@ -75,6 +75,9 @@ public class PlaceOrderController {
    public ResponseDto cancelPlaceOrder(@PathVariable(name = "oid") Integer oid ){
         //1、根据场地id获取一个placeOrder对象
        PlaceOrder placeOrder=placeOrderService.findById(oid);
+       if (placeOrder==null){//若id错误，则返回查询失败码：1
+           ResponseDto.failed();
+       }
        if (!placeOrder.getState().equals(PlaceOrderStateEnum.DELETED.getValue())) {
            placeOrder.setState(PlaceOrderStateEnum.DELETED.getValue());
            placeOrderService.save(placeOrder);
@@ -83,7 +86,10 @@ public class PlaceOrderController {
             return ResponseDto.failed();
        }
    }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
     /**
      * 获取订单详情
      */
@@ -101,4 +107,8 @@ public class PlaceOrderController {
             return ResponseDto.succeed(null, placeOrderDetailDto);
         }
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
 }

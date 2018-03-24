@@ -29,5 +29,9 @@ public interface UserService {
      * @param id
      * @return
      */
+<<<<<<< HEAD
+     User findById(Integer userId);
+=======
     User getUserById(Integer id);
+>>>>>>> 2b81e649b084a37d5345166f28d6606d4e2c4a4b
 }
