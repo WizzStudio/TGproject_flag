@@ -52,7 +52,7 @@ public class PlaceController {
                     cnt = cnt+1;
                 }
 
-            placeDto.setPersonOrderNum(new Integer(cnt));
+            placeDto.setPersonOrderNum(cnt);
 
             pd.add(placeDto);
             }

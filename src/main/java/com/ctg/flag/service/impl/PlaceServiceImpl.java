@@ -18,7 +18,7 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Place getPlace(int id){
-        return placeDao.findById(id);
+        return placeDao.getPlaceById(id);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public void update(Place place){
 
-        Place p = placeDao.findById((int)place.getId());
+        Place p = placeDao.getPlaceById((int)place.getId());
 
         p.setDescription(place.getDescription());
         p.setAid(place.getAid());
@@ -41,13 +41,13 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public void delete(Place place){
-        Place p = placeDao.findById((int)place.getId());
+        Place p = placeDao.getPlaceById((int)place.getId());
         placeDao.delete(p);
     }
 
     @Override
     public void setCount(Place place){
-        Place p = placeDao.findById((int)place.getId());
+        Place p = placeDao.getPlaceById((int)place.getId());
         p.setCount(p.getId()+(Integer)1);
         placeDao.save(p);
     }

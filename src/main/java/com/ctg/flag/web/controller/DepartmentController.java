@@ -42,15 +42,11 @@ public class DepartmentController {
      * @param session
      * @return 验证成功：1，失败：0
      */
-<<<<<<< HEAD
-    @RequestMapping(value ="authCode" ,method = RequestMethod.GET)
-=======
     @RequestMapping(value = "/authCode", method = RequestMethod.GET)
->>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
     public ResponseDto getDepartment(@RequestParam(name = "authCode") String authCode, HttpSession session) {
         Integer userId=(Integer) session.getAttribute("userId");
 
-        User form= userService.findById(userId);
+        User form= userService.getUserById(userId);
         //获取user中的部门id
         Integer did = form.getDid();
         //从数据库中查询部门
@@ -59,10 +55,10 @@ public class DepartmentController {
             return ResponseDto.failed("身份认证码错误！");
         }
         //若查询成功,比较部门id和前端传来id
-        if (did == department.getId()) {
-            return ResponseDto.succeed();//返回成功状态码1
+        if (did.equals(department.getId())) {
+            return ResponseDto.succeed();//返回成功状态码0
         } else {
-            return ResponseDto.failed();//返回失败状态码 0
+            return ResponseDto.failed();//返回失败状态码 1
         }
     }
 

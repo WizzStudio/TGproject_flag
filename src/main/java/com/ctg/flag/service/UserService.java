@@ -24,14 +24,10 @@ public interface UserService {
      */
     void update(User user);
 
-<<<<<<< HEAD
     /**
      * 按用户id查询用户
-     * @param userId
+     * @param id
      * @return
      */
-     User findById(Integer userId);
-=======
     User getUserById(Integer id);
->>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
 }

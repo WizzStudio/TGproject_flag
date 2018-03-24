@@ -9,7 +9,6 @@ import com.ctg.flag.pojo.dto.PlaceOrderDetailDto;
 import com.ctg.flag.pojo.entity.Place;
 import com.ctg.flag.pojo.entity.PlaceOrder;
 import com.ctg.flag.service.PlaceOrderService;
-import com.sun.corba.se.impl.interceptors.PICurrent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -62,12 +61,15 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
      * 状态码小于state的预约事件
      */
     @Override
-    public List<PlaceOrder> personOrderNum(int state){
+    public List<PlaceOrder> personOrderNum(int state) {
         return placeOrderDao.findAllByStateLessThan(state);
+    }
 
+    @Override
+    public PlaceOrder findById(Integer pid) {
+        return placeOrderDao.getById(pid);
+    }
 
-    public void findById(Integer pid) {
-        placeOrderDao.getById(pid);
 
     @Override
     public PlaceOrderDetailDto getPlaceOrderById(Integer oid) {

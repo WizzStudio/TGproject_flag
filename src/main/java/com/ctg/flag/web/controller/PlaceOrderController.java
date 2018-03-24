@@ -14,11 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
-=======
 import org.springframework.web.bind.annotation.RestController;
->>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -71,7 +68,6 @@ public class PlaceOrderController {
     }
 
     /**
-<<<<<<< HEAD
      * 取消预约场地
      * @param oid
      * @return
@@ -88,7 +84,8 @@ public class PlaceOrderController {
             return ResponseDto.failed();
        }
    }
-=======
+
+    /**
      * 获取订单详情
      */
     @RequestMapping(value = "/{oid}", method = RequestMethod.GET)
@@ -105,5 +102,4 @@ public class PlaceOrderController {
             return ResponseDto.succeed(null, placeOrderDetailDto);
         }
     }
->>>>>>> c7fc44bee253bb856cbcf90b6339606dcf3d5d5b
 }
