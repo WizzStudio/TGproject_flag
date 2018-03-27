@@ -91,16 +91,19 @@ public class PlaceController {
 
         Date date1 = DateUtil.String2Date(date);//将string类型转换为date类型
 
-        for(int i=0;i<placeOrderList.size();++i){
+        for(int i=0;i<placeOrderList.size();++i) {
             //在ID为id正在被预约列表中找到日期为date的预约事件
-            if(DateUtil.isSameDay(date1,placeOrderList.get(i).getStartTime())){
+            if (DateUtil.isSameDay(date1, placeOrderList.get(i).getStartTime())) {
                 Date startTime = placeOrderList.get(i).getStartTime();
                 Date endTime = placeOrderList.get(i).getEndTime();
 
-                TimeSlotDto timeSlotDto = new TimeSlotDto(startTime,endTime);
+                TimeSlotDto timeSlotDto = new TimeSlotDto(startTime, endTime);
                 //加入placeDetailDto
                 placeDetailDto.getTiming().add(timeSlotDto);
             }
+        }
+
+        for(int i=0;i<idPlaceOrder.size();++i){
             //在ID为id的场地成功预约列表中找到日期为date的预约事件
             if(DateUtil.isSameDay(date1,idPlaceOrder.get(i).getStartTime())){
                 Date startTime = idPlaceOrder.get(i).getStartTime();
