@@ -32,9 +32,6 @@ public class PlaceOrderController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseDto postPlaceOrder(PlaceOrder placeOrder, HttpSession session) {
         Integer uid = (Integer) session.getAttribute("userId");
-        if (uid == null) {
-            return ResponseDto.failed("not log in");
-        }
 
         placeOrder.setUid(uid);
         placeOrder.setState(PlaceOrderStateEnum.PENDING.getValue());
@@ -49,9 +46,6 @@ public class PlaceOrderController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseDto getPlaceOrder(HttpSession session) {
         Integer uid = (Integer) session.getAttribute("userId");
-        if (uid == null) {
-            return ResponseDto.failed("not log in");
-        }
 
         List<OptionDto<Integer, OrderManageDto> > list = placeOrderService.listPlaceOfOrderByUid(uid);
         list.sort((opt1, opt2) -> {
@@ -71,14 +65,14 @@ public class PlaceOrderController {
         //1、根据场地id获取一个placeOrder对象
        PlaceOrder placeOrder = placeOrderService.getPlaceOrderById(oid);
        if (placeOrder == null){//若id错误，则返回查询失败码：1
-           ResponseDto.failed();
+           return ResponseDto.failed("oid = " + oid + ", not existed.");
        }
        if (!placeOrder.getState().equals(PlaceOrderStateEnum.DELETED.getValue())) {
            placeOrder.setState(PlaceOrderStateEnum.DELETED.getValue());
            placeOrderService.save(placeOrder);
            return ResponseDto.succeed();
        }else {
-            return ResponseDto.failed();
+            return ResponseDto.failed("oid = " + oid + ", is deleted.");
        }
    }
 

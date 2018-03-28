@@ -27,7 +27,7 @@ public class UserController {
      * 用户微信认证登录
      * @param code 前端给的code
      */
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseDto login(@RequestParam(name = "code", defaultValue = "") String code,
                              HttpSession session) throws Exception{
 //        String openid = WechatUtil.getOpenId(code);
@@ -53,9 +53,6 @@ public class UserController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseDto updateUserInfo(User user, HttpSession session) {
         Integer uid = (Integer) session.getAttribute("userId");
-        if (uid == null) {
-            return ResponseDto.failed("not log in");
-        }
 
         User sUser = userService.getUserById(uid);
 
@@ -64,6 +61,15 @@ public class UserController {
         user.setState(UserInfoStateEnum.COMPLETED.getValue());
         userService.update(user);
 
+        return ResponseDto.succeed();
+    }
+
+    /**
+     * 用户退出
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ResponseDto logout(HttpSession session) {
+        session.invalidate();
         return ResponseDto.succeed();
     }
 }

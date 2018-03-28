@@ -32,7 +32,7 @@ public class PlaceServiceImpl implements PlaceService {
         Place p = placeDao.getPlaceById((int)place.getId());
 
         p.setDescription(place.getDescription());
-        p.setAid(place.getAid());
+        // p.setAdminKind(place.getAdminKind());
         p.setKind(place.getKind());
         p.setName(place.getName());
 

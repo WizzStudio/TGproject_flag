@@ -8,5 +8,6 @@ spring:
     username: flag
     password: flag
   jpa:
+    hibernate:
+      ddl-auto: create
     show-sql: true
-

@@ -19,7 +19,12 @@ public enum AdminKindEnum {
     /**
      * 会务室管理员
      */
-    CONFERENCE_ROOM_ADMIN(3);
+    CONFERENCE_ROOM_ADMIN(3),
+
+    /**
+     * 众创申请入驻管理员
+     */
+    SPACE_APPLY_ADMIN(4);
 
     private Integer value ;//状态码
 

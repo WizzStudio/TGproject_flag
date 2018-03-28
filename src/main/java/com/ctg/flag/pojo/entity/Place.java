@@ -15,7 +15,7 @@ public class Place {
 
     private Integer count;
 
-    private Integer aid;
+    private Integer adminKind;
 
     private String description;
 
@@ -51,12 +51,12 @@ public class Place {
         this.count = count;
     }
 
-    public Integer getAid() {
-        return aid;
+    public Integer getAdminKind() {
+        return adminKind;
     }
 
-    public void setAid(Integer aid) {
-        this.aid = aid;
+    public void setAdminKind(Integer adminKind) {
+        this.adminKind = adminKind;
     }
 
     public String getDescription() {

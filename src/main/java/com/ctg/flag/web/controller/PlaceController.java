@@ -1,5 +1,6 @@
 package com.ctg.flag.web.controller;
 
+import com.ctg.flag.enums.PlaceOrderStateEnum;
 import com.ctg.flag.pojo.dto.PlaceDetailDto;
 import com.ctg.flag.pojo.dto.TimeSlotDto;
 import com.ctg.flag.pojo.dto.ResponseDto;
@@ -75,9 +76,9 @@ public class PlaceController {
 
 
         //正在被预约的场地列表
-        List<PlaceOrder> placeOrderList = placeOrderService.personOrderNum(2);
+        List<PlaceOrder> placeOrderList = placeOrderService.personOrderNum(PlaceOrderStateEnum.ACCEPTED.getValue());
         //ID为id的场地成功预约的列表
-        List<PlaceOrder> idPlaceOrder = placeOrderService.successOrderNum(id,4);
+        List<PlaceOrder> idPlaceOrder = placeOrderService.successOrderNum(id, PlaceOrderStateEnum.ACCEPTED.getValue());
 
         PlaceDetailDto placeDetailDto = new PlaceDetailDto(place.getDescription());
 

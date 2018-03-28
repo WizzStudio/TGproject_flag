@@ -52,6 +52,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 
     @Override
     public void save(PlaceOrder placeOrder) {
+        placeOrder.setState(PlaceOrderStateEnum.PENDING.getValue());
         placeOrderDao.save(placeOrder);
     }
 
