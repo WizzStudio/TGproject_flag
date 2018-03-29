@@ -1,30 +1,23 @@
 package com.ctg.flag.util;
 
+import com.ctg.flag.exception.NoAuthenticationException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.URLEncoder;
 
 /**
  * 微信工具类
  * 获得openid
  */
+@Component
 public class WechatUtil {
-    private static final String APPID = "";
-    private static final String SECRET = "";
-    private static final String GRANT_CODE = "authorization_code";
+    @Value("${wx.url}")
+    private String WECHAT_OPENID_URL;
 
-    private static final String WECHAT_OPENID_URL = "https://api.weixin.qq.com/sns/jscode2session";
-    private static final Map<String, String> REQUEST_PARAMS = new HashMap<String, String>();
-    static {
-        REQUEST_PARAMS.put("appid", APPID);
-        REQUEST_PARAMS.put("SECRET", SECRET);
-        REQUEST_PARAMS.put("GRANT_CODE", GRANT_CODE);
-    }
-
-    private static RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate = new RestTemplate();
 
     /**
      * 获取用户唯一openid
@@ -32,12 +25,11 @@ public class WechatUtil {
      * @return  openid
      * @throws Exception  请求失败
      */
-    public static String getOpenId(String code) throws Exception {
-        REQUEST_PARAMS.put("js_code", code);
-
-        ResponseEntity<String> result = restTemplate.getForEntity(WECHAT_OPENID_URL, String.class, REQUEST_PARAMS);
+    public String getOpenId(String code) throws Exception{
+        String url = WECHAT_OPENID_URL + URLEncoder.encode(code, "UTF-8");
+        ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
         if (result.getStatusCodeValue() != 200) {
-            throw new Exception("connect wechat failed");
+            throw new NoAuthenticationException("connect wechat failed");
         }
 
         WechatResponseBody responseBody = JsonUtil.json2Object(result.getBody(), WechatResponseBody.class);

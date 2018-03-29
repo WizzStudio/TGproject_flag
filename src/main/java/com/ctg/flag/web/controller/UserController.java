@@ -18,9 +18,12 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     private UserService userService;
 
+    private WechatUtil wechatUtil;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, WechatUtil wechatUtil) {
         this.userService = userService;
+        this.wechatUtil = wechatUtil;
     }
 
     /**
@@ -30,8 +33,8 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseDto login(@RequestParam(name = "code", defaultValue = "") String code,
                              HttpSession session) throws Exception{
-//        String openid = WechatUtil.getOpenId(code);
-        String openid = "openid";
+        String openid = wechatUtil.getOpenId(code);
+//        String openid = "openid";
         if (openid == null) {
             return ResponseDto.failed("log in failed, code is wrong");
         }

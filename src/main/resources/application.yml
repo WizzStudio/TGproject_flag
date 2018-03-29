@@ -1,13 +1,55 @@
-server:
-  port: 8080
+# 通用配置
 spring:
+  profiles:
+    active: dev
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/flag?characterEncoding=utf-8
     username: flag
     password: flag
+## 微信openid配置
+wx:
+  appid: 123456
+  secret: 123456
+  url: https://api.weixin.qq.com/sns/jscode2session?appid=${wx.appid}&secret=${wx.secret}&grant_type=authorization_code&js_code=
+
+---
+# 开发环境配置
+spring:
+  profiles: dev
   jpa:
     hibernate:
       ddl-auto: create
     show-sql: true
+
+server:
+  port: 8080
+logging:
+  level:
+    org.springframework.web: error
+    com.ctg: debug
+  pattern:
+    console: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
+  file: flag.log
+
+---
+# 线上环境配置
+spring:
+  profiles: pro
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+server:
+  port: 8006
+logging:
+  level:
+    org.springframework.web: error
+    com.ctg: error
+  pattern:
+    console:
+    file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
+  file: flag.log

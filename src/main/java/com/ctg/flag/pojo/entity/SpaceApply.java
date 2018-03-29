@@ -1,11 +1,10 @@
 package com.ctg.flag.pojo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
+@Table(name = "space_apply", schema = "flag")
 public class SpaceApply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +20,7 @@ public class SpaceApply {
     private String teamName;
     private String website;
     private String field;
-    private String Operations;
+    private String operations;
 
     private String name1;
     private String position1;
@@ -54,8 +53,8 @@ public class SpaceApply {
     private Integer uid;
     private Integer adminKind;
 
-    private String createTime;
-    private String updateTime;
+    private Date createTime;
+    private Date updateTime;
 
     public String getStudentId() {
         return studentId;
@@ -81,19 +80,19 @@ public class SpaceApply {
         this.feedback = feedback;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public String getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -194,11 +193,11 @@ public class SpaceApply {
     }
 
     public String getOperations() {
-        return Operations;
+        return operations;
     }
 
     public void setOperations(String operations) {
-        Operations = operations;
+        this.operations = operations;
     }
 
     public String getName1() {
