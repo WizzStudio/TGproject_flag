@@ -77,14 +77,15 @@ public class DepartmentController {
         //通过种类查询所有部门
         List<Department> list=departmentService.findAllByKind();
         //Map，存放部门id,部门名称
-        Map<String, Integer> dPartmentMap = new HashMap<>();
+        List<OptionDto<String, Integer> > departmentList = new ArrayList<>();
         if (list!=null){
             for (Department department:list){
                 String name = department.getName();
                 Integer id = department.getId();
-                dPartmentMap.put(name, id);
+                departmentList.add(new OptionDto<>(name, id));
             }
-            return ResponseDto.succeed(null,dPartmentMap);//返回部门列表
+            departmentList.sort(Comparator.comparing(OptionDto::getOptKey));
+            return ResponseDto.succeed(null,departmentList);//返回部门列表
         }else {
             return ResponseDto.failed();//查询为空，则返回失败状态码
         }
