@@ -5,6 +5,7 @@ import com.ctg.flag.exception.NoPermissionException;
 import com.ctg.flag.pojo.dto.ResponseDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,8 +35,10 @@ public class GlobalExceptionHandler {
         logger.error(sb.toString());
 
         if (e instanceof NoAuthenticationException ||
-                e instanceof NoPermissionException) {
+                e instanceof NoPermissionException ) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        } else if(e instanceof HttpRequestMethodNotSupportedException) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } else {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

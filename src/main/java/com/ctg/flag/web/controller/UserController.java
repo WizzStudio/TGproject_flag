@@ -1,16 +1,20 @@
 package com.ctg.flag.web.controller;
 
 import com.ctg.flag.enums.UserInfoStateEnum;
+import com.ctg.flag.pojo.dto.OptionDto;
 import com.ctg.flag.pojo.dto.ResponseDto;
 import com.ctg.flag.pojo.entity.User;
 import com.ctg.flag.service.UserService;
 import com.ctg.flag.util.WechatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -32,7 +36,8 @@ public class UserController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseDto login(@RequestParam(name = "code", defaultValue = "") String code,
-                             HttpSession session) throws Exception{
+                             HttpServletRequest request,
+                             HttpSession session) throws Exception {
         String openid = wechatUtil.getOpenId(code);
 //        String openid = "openid";
         if (openid == null) {
@@ -43,9 +48,9 @@ public class UserController {
         session.setAttribute("userId", user.getId());
 
         if (user.getState().equals(UserInfoStateEnum.INCOMPLETED.getValue())) {
-            return ResponseDto.failed("not complete user info.");
+            return ResponseDto.succeed("not complete user info.", new OptionDto<>("completed", 1));
         } else {
-            return ResponseDto.succeed("log in successfully.");
+            return ResponseDto.succeed("log in successfully.", new OptionDto<>("completed", 0));
         }
     }
 

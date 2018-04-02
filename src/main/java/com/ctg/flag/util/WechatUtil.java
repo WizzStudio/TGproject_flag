@@ -25,14 +25,16 @@ public class WechatUtil {
      * @return  openid
      * @throws Exception  请求失败
      */
-    public String getOpenId(String code) throws Exception{
+    public String getOpenId(String code) throws Exception {
         String url = WECHAT_OPENID_URL + URLEncoder.encode(code, "UTF-8");
+        System.out.println(url);
         ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
         if (result.getStatusCodeValue() != 200) {
             throw new NoAuthenticationException("connect wechat failed");
         }
 
         WechatResponseBody responseBody = JsonUtil.json2Object(result.getBody(), WechatResponseBody.class);
+        System.out.println(responseBody.toString());
         return responseBody.getOpenid();
     }
 }

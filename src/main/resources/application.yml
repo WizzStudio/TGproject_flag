@@ -10,8 +10,8 @@ spring:
     password: flag
 ## 微信openid配置
 wx:
-  appid: 123456
-  secret: 123456
+  appid: wx2f6e3eb2fb0cc937
+  secret: fd42347bdb8152a8d426a58960e34e9f
   url: https://api.weixin.qq.com/sns/jscode2session?appid=${wx.appid}&secret=${wx.secret}&grant_type=authorization_code&js_code=
 
 ---
@@ -44,7 +44,7 @@ spring:
     show-sql: false
 
 server:
-  port: 8006
+  port: 80
 logging:
   level:
     org.springframework.web: error
