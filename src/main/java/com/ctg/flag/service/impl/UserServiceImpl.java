@@ -1,6 +1,7 @@
 package com.ctg.flag.service.impl;
 
 import com.ctg.flag.dao.UserDao;
+import com.ctg.flag.enums.UserInfoStateEnum;
 import com.ctg.flag.pojo.entity.User;
 import com.ctg.flag.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class UserServiceImpl implements UserService{
         if (user == null) {
             user = new User();
             user.setOpenid(openid);
-            userDao.save(user);
+            user.setState(UserInfoStateEnum.INCOMPLETED.getValue());
+            user= userDao.save(user);
         }
         return user;
     }

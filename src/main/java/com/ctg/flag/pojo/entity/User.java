@@ -13,7 +13,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     private String studentId = "000000000000";
 
     private String position = "default";
@@ -81,5 +80,15 @@ public class User {
 
     public void setDid(Integer did) {
         this.did = did;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                ", studentId='" + studentId + '\'' +
+                ", position='" + position + '\'' +
+                ", name='" + name + '\'' +
+                ", did=" + did +
+                '}';
     }
 }

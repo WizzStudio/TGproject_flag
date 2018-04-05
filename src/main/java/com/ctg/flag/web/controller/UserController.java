@@ -1,21 +1,17 @@
 package com.ctg.flag.web.controller;
 
 import com.ctg.flag.enums.UserInfoStateEnum;
-import com.ctg.flag.pojo.dto.OptionDto;
 import com.ctg.flag.pojo.dto.ResponseDto;
 import com.ctg.flag.pojo.entity.User;
 import com.ctg.flag.service.UserService;
 import com.ctg.flag.util.WechatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping(value = "/user")
@@ -36,21 +32,26 @@ public class UserController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseDto login(@RequestParam(name = "code", defaultValue = "") String code,
-                             HttpServletRequest request,
                              HttpSession session) throws Exception {
         String openid = wechatUtil.getOpenId(code);
-//        String openid = "openid";
+//        String openid = "2";
         if (openid == null) {
             return ResponseDto.failed("log in failed, code is wrong");
         }
 
         User user = userService.login(openid);
+
         session.setAttribute("userId", user.getId());
 
+        Map<String, Object> resData = new HashMap<>();
+        resData.put("sessionId", session.getId());
+
         if (user.getState().equals(UserInfoStateEnum.INCOMPLETED.getValue())) {
-            return ResponseDto.succeed("not complete user info.", new OptionDto<>("completed", 1));
+            resData.put("completed", 1);
+            return ResponseDto.succeed("not complete user info.", resData);
         } else {
-            return ResponseDto.succeed("log in successfully.", new OptionDto<>("completed", 0));
+            resData.put("completed", 0);
+            return ResponseDto.succeed("log in successfully.", resData);
         }
     }
 
@@ -59,7 +60,8 @@ public class UserController {
      * @param user 表单自动生成的user
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseDto updateUserInfo(User user, HttpSession session) {
+    public ResponseDto updateUserInfo(@RequestBody User user,
+                                      HttpSession session) {
         Integer uid = (Integer) session.getAttribute("userId");
 
         User sUser = userService.getUserById(uid);
