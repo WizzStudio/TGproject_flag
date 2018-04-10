@@ -5,7 +5,9 @@ import com.ctg.flag.pojo.entity.SpaceApply;
 public interface SpaceService {
     void saveSpaceApply(SpaceApply spaceApply);
 
-    SpaceApply getSpaceApplyByUid(Integer uid);
+    SpaceApply getPendingSpaceApplyByUid(Integer uid);
 
-    Boolean existsByUidAndStateNot(Integer uid, Integer value);
+    void deleteSpaceApplyByUid(Integer uid);
+
+    Boolean existsByUidAndStateIn(Integer uid);
 }

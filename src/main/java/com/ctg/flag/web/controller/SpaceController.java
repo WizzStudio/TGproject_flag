@@ -7,6 +7,7 @@ import com.ctg.flag.pojo.dto.SpaceApplyResponseDto;
 import com.ctg.flag.pojo.entity.SpaceApply;
 import com.ctg.flag.service.SpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/space")
 public class SpaceController {
-    SpaceService spaceService;
+    private SpaceService spaceService;
 
     @Autowired
     public SpaceController(SpaceService spaceService) {
@@ -29,7 +30,7 @@ public class SpaceController {
     @RequestMapping(value = "/apply/existence", method = RequestMethod.GET)
     public ResponseDto isExisted(HttpSession session) {
         Integer uid = (Integer) session.getAttribute("userId");
-        Boolean existed = spaceService.existsByUidAndStateNot(uid, SpaceApplyStateEnum.DELETED.getValue());
+        Boolean existed = spaceService.existsByUidAndStateIn(uid);
 
         if (existed) {
             return ResponseDto.succeed();
@@ -58,12 +59,24 @@ public class SpaceController {
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
     public ResponseDto getSpaceApply(HttpSession session) {
         Integer uid = (Integer) session.getAttribute("userId");
-        SpaceApply spaceApply = spaceService.getSpaceApplyByUid(uid);
-
+        SpaceApply spaceApply = spaceService.getPendingSpaceApplyByUid(uid);
+        if (spaceApply == null) {
+            return ResponseDto.failed("you didn't submit a space apply.");
+        }
         SpaceApplyResponseDto spaceApplyResponseDto = new SpaceApplyResponseDto();
         spaceApplyResponseDto.setFeedback(spaceApply.getFeedback());
         spaceApplyResponseDto.setState(spaceApply.getState());
 
         return ResponseDto.succeed(null, spaceApplyResponseDto);
+    }
+
+    /**
+     * 删除申请
+     */
+    @DeleteMapping(value = "/apply")
+    public ResponseDto deleteSpaceApply(HttpSession session) {
+        Integer uid = (Integer) session.getAttribute("userId");
+        spaceService.deleteSpaceApplyByUid(uid);
+        return ResponseDto.succeed();
     }
 }

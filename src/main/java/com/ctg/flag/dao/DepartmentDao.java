@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Repository
-public interface DepartmentDao extends JpaRepository<Department,Integer> {
+public interface  DepartmentDao extends JpaRepository<Department,Integer> {
     /**
      * 根据部门身份验证码查询部门
      * @param authCode

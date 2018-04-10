@@ -1,11 +1,14 @@
 package com.ctg.flag.service.impl;
 
 import com.ctg.flag.dao.PlaceDao;
+import com.ctg.flag.enums.PlaceKindEnum;
+import com.ctg.flag.pojo.dto.OptionDto;
 import com.ctg.flag.pojo.entity.Place;
 import com.ctg.flag.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -55,5 +58,18 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public List<Place> browse(){
         return placeDao.findAll();
+    }
+
+    @Override
+    public List<OptionDto<String, Integer>> listAllCouncil() {
+        List<Place> councils = placeDao.findAllByKind(PlaceKindEnum.CONFERENCE_ROOM.getValue());
+
+        System.out.println(councils.size());
+
+        List<OptionDto<String, Integer>> cl = new ArrayList<>();
+        councils.forEach(c -> {
+            cl.add(new OptionDto<>(c.getName(), c.getId()));
+        });
+        return cl;
     }
 }

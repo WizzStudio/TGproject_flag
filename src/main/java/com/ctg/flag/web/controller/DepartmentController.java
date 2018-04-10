@@ -37,9 +37,6 @@ public class DepartmentController {
 
     /**
      * 验证身份认证码功能
-     *
-     * @param authCode
-     * @param session
      * @return 验证成功：0，失败：1
      */
     @RequestMapping(value = "/authCode", method = RequestMethod.GET)

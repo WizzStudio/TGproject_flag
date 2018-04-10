@@ -54,6 +54,10 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
     public void save(PlaceOrder placeOrder) {
         placeOrder.setState(PlaceOrderStateEnum.PENDING.getValue());
         placeOrderDao.save(placeOrder);
+
+        Place place = placeDao.getPlaceById(placeOrder.getPid());
+        place.setCount(place.getCount()+1);
+        placeDao.save(place);
     }
 
 

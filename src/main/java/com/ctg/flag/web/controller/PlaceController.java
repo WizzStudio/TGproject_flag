@@ -38,27 +38,25 @@ public class PlaceController {
         List<PlaceDto> pd = new ArrayList<>();
 
         //正在被预约的事件
-
-        List<PlaceOrder> placeOrderList = placeOrderService.personOrderNum(2);
+        List<PlaceOrder> placeOrderList = placeOrderService.personOrderNum(PlaceOrderStateEnum.ACCEPTED.getValue());
 
         //所有场地列表
         List<Place> placeList = placeService.browse();
 
-        for(int i=0;i<placeList.size();++i){
+        for (Place aPlaceList : placeList) {
 
-            PlaceDto placeDto = new PlaceDto(placeList.get(i).getId(),placeList.get(i).getName(),placeList.get(i).getCount());
-            int cnt = 0;  //记录一个场地正在被预约且未成功的事件的数量
+            PlaceDto placeDto = new PlaceDto(aPlaceList.getId(), aPlaceList.getName(), aPlaceList.getCount());
+            Integer cnt = 0;  //记录一个场地正在被预约且未成功的事件的数量
 
-            for(int j=0;j<placeOrderList.size();++j){
-
-                if((int)placeList.get(i).getId() == (int)placeOrderList.get(j).getPid()){
-                    cnt = cnt+1;
+            for (PlaceOrder aPlaceOrderList : placeOrderList) {
+                if(aPlaceOrderList.getPid() == null) continue;
+                if (aPlaceList.getId().equals(aPlaceOrderList.getPid())) {
+                    cnt++;
                 }
-
+            }
             placeDto.setPersonOrderNum(cnt);
 
             pd.add(placeDto);
-            }
         }
 
         if (!pd.isEmpty()){
