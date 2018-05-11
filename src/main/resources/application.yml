@@ -1,4 +1,6 @@
 # 通用配置
+server:
+  port: 8004
 spring:
   profiles:
     active: dev
@@ -20,19 +22,19 @@ spring:
   profiles: dev
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
-
-server:
-  port: 8080
+  devtools:
+      restart:
+        enabled: true
 logging:
   level:
-    org.springframework.web: error
-    com.ctg: debug
+    org.springframework.web: warn
+    com.ctg: warn
   pattern:
     console: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
-  file: flag.log
+  file: /www/wwwlogs/flag.log
 
 ---
 # 线上环境配置
@@ -42,14 +44,15 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
-
-server:
-  port: 80
+  devtools:
+    restart:
+      enabled: false
 logging:
   level:
+    root: error
     org.springframework.web: error
     com.ctg: error
   pattern:
     console:
     file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
-  file: flag.log
+  file: /www/wwwlogs/flag.log

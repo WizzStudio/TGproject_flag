@@ -20,12 +20,18 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public String getSpaceMessage() {
         Message message = messageDao.getByKindAndState(MessageKindEnum.START_SPACE.getValue(), MessageStateEnum.EXISTING.getValue());
+        if (message == null) {
+            return "信息为空。";
+        }
         return message.getContent();
     }
 
     @Override
     public String getCouncilMessage() {
         Message message = messageDao.getByKindAndState(MessageKindEnum.COUNCIL.getValue(), MessageStateEnum.EXISTING.getValue());
+        if (message == null) {
+            return "信息为空。";
+        }
         return message.getContent();
     }
 }

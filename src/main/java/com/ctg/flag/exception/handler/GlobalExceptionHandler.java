@@ -31,15 +31,18 @@ public class GlobalExceptionHandler {
             sb.append("\tat ").append(element).append("\n");
         }
 
-        // 记录日志
-        logger.error(sb.toString());
-
         if (e instanceof NoAuthenticationException ||
                 e instanceof NoPermissionException ) {
+            // 记录日志
+            logger.info(sb.toString());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else if(e instanceof HttpRequestMethodNotSupportedException) {
+            // 记录日志
+            logger.info(sb.toString());
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } else {
+            // 记录日志
+            logger.error(sb.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
 

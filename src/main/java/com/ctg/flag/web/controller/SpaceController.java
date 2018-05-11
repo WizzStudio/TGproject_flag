@@ -48,7 +48,7 @@ public class SpaceController {
         spaceApply.setAdminKind(AdminKindEnum.SPACE_APPLY_ADMIN.getValue());
         spaceApply.setUid(uid);
         spaceApply.setState(SpaceApplyStateEnum.PENDING.getValue());
-        spaceService.saveSpaceApply(spaceApply);
+        spaceService.saveSpaceApply(uid, spaceApply);
 
         return ResponseDto.succeed();
     }

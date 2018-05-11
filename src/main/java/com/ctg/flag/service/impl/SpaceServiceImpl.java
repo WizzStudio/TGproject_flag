@@ -20,7 +20,16 @@ public class SpaceServiceImpl implements SpaceService{
     }
 
     @Override
-    public void saveSpaceApply(SpaceApply spaceApply) {
+    public void saveSpaceApply(Integer uid, SpaceApply spaceApply) {
+        List<Integer> states = new ArrayList<>();
+        states.add(SpaceApplyStateEnum.PENDING.getValue());
+        states.add(SpaceApplyStateEnum.ACCEPTING.getValue());
+        states.add(SpaceApplyStateEnum.REFUSED.getValue());
+        SpaceApply sa = spaceApplyDao.getByUidAndStateIn(uid, states);
+        if (sa != null) {
+            sa.setState(SpaceApplyStateEnum.PENDING_DELETED.getValue());
+            spaceApplyDao.save(sa);
+        }
         spaceApplyDao.save(spaceApply);
     }
 
