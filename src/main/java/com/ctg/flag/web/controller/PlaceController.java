@@ -37,10 +37,10 @@ public class PlaceController {
 
         List<PlaceDto> pd = new ArrayList<>();
 
-        //正在被预约的事件
+        //正在被预约的普通场地列表事件
         List<PlaceOrder> placeOrderList = placeOrderService.personOrderNum(PlaceOrderStateEnum.ACCEPTED.getValue());
 
-        //所有场地列表
+        //所有普通场地列表
         List<Place> placeList = placeService.browse();
 
         for (Place aPlaceList : placeList) {

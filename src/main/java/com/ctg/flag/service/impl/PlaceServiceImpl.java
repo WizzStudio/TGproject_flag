@@ -57,7 +57,7 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public List<Place> browse(){
-        return placeDao.findAll();
+        return placeDao.findAllByKind(PlaceKindEnum.ORDINARY_ROOM.getValue());
     }
 
     @Override
