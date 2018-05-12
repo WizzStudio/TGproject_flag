@@ -29,10 +29,10 @@ spring:
         enabled: true
 logging:
   level:
+    root: warn
     org.springframework.web: warn
-    com.ctg: warn
+    com.ctg.flag: warn
   pattern:
-    console: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
   file: /www/wwwlogs/flag.log
 
@@ -51,8 +51,7 @@ logging:
   level:
     root: error
     org.springframework.web: error
-    com.ctg: error
+    com.ctg.flag: error
   pattern:
-    console:
     file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
   file: /www/wwwlogs/flag.log

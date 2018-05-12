@@ -33,14 +33,14 @@ public class UserInfoInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         Integer uid = (Integer) session.getAttribute("userId");
         if (uid == null) {
-            throw new NoAuthenticationException();
+            throw new NoAuthenticationException("No Authentication");
         }
         User user = userService.getUserById(uid);
         if (user == null) {
-            throw new NoAuthenticationException();
+            throw new NoAuthenticationException("No Authentication");
         }
         if (user.getState().equals(UserInfoStateEnum.INCOMPLETED.getValue())) {
-            throw new NoPermissionException();
+            throw new NoPermissionException("No Permission");
         }
         return true;
     }
