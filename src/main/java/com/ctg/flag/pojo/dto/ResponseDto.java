@@ -109,8 +109,9 @@ public class ResponseDto {
         return data;
     }
 
-    public void setData(Object data) {
+    public ResponseDto setData(Object data) {
         this.data = data;
+        return this;
     }
 
     @Override

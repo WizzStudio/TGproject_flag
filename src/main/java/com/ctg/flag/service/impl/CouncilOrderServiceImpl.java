@@ -1,15 +1,15 @@
 package com.ctg.flag.service.impl;
 
 import com.ctg.flag.dao.CouncilOrderDao;
+import com.ctg.flag.dao.projection.CouncilOrderStatusProjection;
+import com.ctg.flag.enums.CouncilStateEnum;
 import com.ctg.flag.pojo.dto.CouncilOrderListDto;
 import com.ctg.flag.pojo.entity.CouncilOrder;
 import com.ctg.flag.service.CouncilOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CouncilOrderServiceImpl implements CouncilOrderService{
@@ -34,5 +34,10 @@ public class CouncilOrderServiceImpl implements CouncilOrderService{
         });
         cl.sort(Comparator.comparing(CouncilOrderListDto::getCreateTime).reversed());
         return cl;
+    }
+
+    @Override
+    public List<CouncilOrderStatusProjection> getOrderStatus(Integer userId) {
+        return councilOrderDao.getByUidOrderByStartTimeDesc(userId);
     }
 }

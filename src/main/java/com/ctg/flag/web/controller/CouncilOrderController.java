@@ -1,5 +1,6 @@
 package com.ctg.flag.web.controller;
 
+import com.ctg.flag.dao.projection.CouncilOrderStatusProjection;
 import com.ctg.flag.enums.CouncilStateEnum;
 import com.ctg.flag.pojo.dto.CouncilOrderListDto;
 import com.ctg.flag.pojo.dto.OptionDto;
@@ -47,5 +48,16 @@ public class CouncilOrderController {
 
         List<CouncilOrderListDto> councils = councilOrderService.listCouncilStateByUid(userId);
         return ResponseDto.succeed(null, councils);
+    }
+
+    /**
+     * 我的申请情况
+     */
+    @GetMapping("/status")
+    public ResponseDto getOrderStatus(HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        List<CouncilOrderStatusProjection> cops = councilOrderService.getOrderStatus(userId);
+
+        return ResponseDto.succeed().setData(cops);
     }
 }

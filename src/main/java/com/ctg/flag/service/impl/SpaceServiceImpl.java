@@ -25,10 +25,11 @@ public class SpaceServiceImpl implements SpaceService{
         states.add(SpaceApplyStateEnum.PENDING.getValue());
         states.add(SpaceApplyStateEnum.ACCEPTING.getValue());
         states.add(SpaceApplyStateEnum.REFUSED.getValue());
-        SpaceApply sa = spaceApplyDao.getByUidAndStateIn(uid, states);
-        if (sa != null) {
-            sa.setState(SpaceApplyStateEnum.PENDING_DELETED.getValue());
-            spaceApplyDao.save(sa);
+        List<SpaceApply> sa = spaceApplyDao.getByUidAndStateIn(uid, states);
+        sa.sort((a, b) -> b.getCreateTime().compareTo(a.getCreateTime()));
+        if (sa.size() != 0) {
+            sa.get(0).setState(SpaceApplyStateEnum.PENDING_DELETED.getValue());
+            spaceApplyDao.save(sa.get(0));
         }
         spaceApplyDao.save(spaceApply);
     }
@@ -40,7 +41,9 @@ public class SpaceServiceImpl implements SpaceService{
         states.add(SpaceApplyStateEnum.ACCEPTING.getValue());
         states.add(SpaceApplyStateEnum.REFUSED.getValue());
 
-        return spaceApplyDao.getByUidAndStateIn(uid, states);
+        List<SpaceApply> list = spaceApplyDao.getByUidAndStateIn(uid, states);
+        list.sort((a, b) -> b.getCreateTime().compareTo(a.getCreateTime()));
+        return list.get(0);
     }
 
     @Override
@@ -50,7 +53,12 @@ public class SpaceServiceImpl implements SpaceService{
         states.add(SpaceApplyStateEnum.ACCEPTING.getValue());
         states.add(SpaceApplyStateEnum.REFUSED.getValue());
 
-        SpaceApply spaceApply = spaceApplyDao.getByUidAndStateIn(uid, states);
+        List<SpaceApply> spaceApplys = spaceApplyDao.getByUidAndStateIn(uid, states);
+        if (spaceApplys.size() == 0) return;
+
+        spaceApplys.sort((a, b) -> b.getCreateTime().compareTo(a.getCreateTime()));
+        SpaceApply spaceApply = spaceApplys.get(0);
+
         if (spaceApply.getState().equals(SpaceApplyStateEnum.PENDING.getValue())) {
             spaceApply.setState(SpaceApplyStateEnum.PENDING_DELETED.getValue());
         } else if (spaceApply.getState().equals(SpaceApplyStateEnum.ACCEPTING.getValue())) {

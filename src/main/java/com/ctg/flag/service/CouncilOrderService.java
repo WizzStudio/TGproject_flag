@@ -1,5 +1,6 @@
 package com.ctg.flag.service;
 
+import com.ctg.flag.dao.projection.CouncilOrderStatusProjection;
 import com.ctg.flag.pojo.dto.CouncilOrderListDto;
 import com.ctg.flag.pojo.dto.OptionDto;
 import com.ctg.flag.pojo.entity.CouncilOrder;
@@ -12,4 +13,5 @@ public interface CouncilOrderService {
 
     List<CouncilOrderListDto> listCouncilStateByUid(Integer userId);
 
+    List<CouncilOrderStatusProjection> getOrderStatus(Integer userId);
 }

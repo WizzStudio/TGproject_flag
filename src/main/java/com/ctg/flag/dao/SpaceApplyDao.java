@@ -12,5 +12,5 @@ public interface SpaceApplyDao extends JpaRepository<SpaceApply, Integer> {
 
     Boolean existsByUidAndStateIn(Integer uid, Collection<Integer> state);
 
-    SpaceApply getByUidAndStateIn(Integer uid, List<Integer> states);
+    List<SpaceApply> getByUidAndStateIn(Integer uid, List<Integer> states);
 }
